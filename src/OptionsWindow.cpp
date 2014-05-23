@@ -17,6 +17,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include <fx.h>
+#include <stdint.h>
 #include "OptionsWindow.h"
 #include "TextFieldOption.h"
 #include "CheckButtonOption.h"
@@ -591,7 +592,7 @@ OptionsWindow::onMisc(FXObject *, FXSelector, void *)
 long
 OptionsWindow::onTipText(FXObject *, FXSelector, void *a_data)
 {
-  int value = (int) a_data;
+  intptr_t value = (intptr_t) a_data;
   if (value)
     {
       if (!m_toolTip)

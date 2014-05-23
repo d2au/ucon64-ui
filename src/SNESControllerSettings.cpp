@@ -17,6 +17,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include <fx.h>
+#include <stdint.h>
 #include "SNESControllerSettings.h"
 #include "Frontend.h"
 
@@ -92,7 +93,7 @@ SNESControllerSettings::~SNESControllerSettings()
 long
 SNESControllerSettings::onUseSettings(FXObject *, FXSelector, void *a_data)
 {
-  if ((int) a_data)
+  if ((intptr_t) a_data)
     {
       m_controller1Label->enable();
       m_controller1->enable();

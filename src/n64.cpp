@@ -17,6 +17,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include <fx.h>
+#include <stdint.h>
 #include "CommandLineHandler.h"
 #include "ComboBox.h"
 #include "FileDialog.h"
@@ -743,7 +744,7 @@ N64Frame::onSMSROMPath(FXObject *, FXSelector, void *)
 long
 N64Frame::onOverride(FXObject *, FXSelector, void *a_data)
 {
-  if ((int) a_data)
+  if ((intptr_t) a_data)
     {
       m_overrideN64->enable();
       m_overrideHeaderSize->enable();

@@ -18,6 +18,7 @@
 */
 #include <time.h>
 #include <fx.h>
+#include <stdint.h>
 #include "CommandLineHandler.h"
 #include "ComboBox.h"
 #include "FileDialog.h"
@@ -852,7 +853,7 @@ MiscFrame::setDATFilename(void)
 long
 MiscFrame::onUseDATConsoleType(FXObject *, FXSelector, void *a_data)
 {
-  if ((int) a_data)                             // 1 if checked
+  if ((intptr_t) a_data)                             // 1 if checked
     {
       updateRenameTypes();
       setDATFilename();

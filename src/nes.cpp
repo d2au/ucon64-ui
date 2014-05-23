@@ -17,6 +17,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include <fx.h>
+#include <stdint.h>
 #include "CommandLineHandler.h"
 #include "ComboBox.h"
 #include "FileDialog.h"
@@ -688,7 +689,7 @@ NESFrame::onBattery(FXObject *a_src, FXSelector, void *a_data)
 
   if (a_src == m_battery[0])
     {
-      if ((int) a_data)
+      if ((intptr_t) a_data)
         for (n = 1; n < 3; n++)
           m_battery[n]->disable();
       else
@@ -712,7 +713,7 @@ NESFrame::onMirroring(FXObject *a_src, FXSelector, void *a_data)
 
   if (a_src == m_mirroring[0])
     {
-      if ((int) a_data)
+      if ((intptr_t) a_data)
         for (n = 1; n < 7; n++)
           m_mirroring[n]->disable();
       else
@@ -735,7 +736,7 @@ NESFrame::onController(FXObject *, FXSelector, void *a_data)
 {
   int n;
 
-  if ((int) a_data)
+  if ((intptr_t) a_data)
     for (n = 1; n < 7; n++)
       m_controller[n]->disable();
   else
@@ -753,7 +754,7 @@ NESFrame::onTV(FXObject *a_src, FXSelector, void *a_data)
 
   if (a_src == m_televisionType[0])
     {
-      if ((int) a_data)
+      if ((intptr_t) a_data)
         for (n = 1; n < 3; n++)
           m_televisionType[n]->disable();
       else
@@ -787,7 +788,7 @@ NESFrame::onVRAM(FXObject *a_src, FXSelector, void *a_data)
 
   if (a_src == m_VRAMOverride[0])
     {
-      if ((int) a_data)
+      if ((intptr_t) a_data)
         for (n = 1; n < 3; n++)
           m_VRAMOverride[n]->disable();
       else
@@ -902,7 +903,7 @@ NESFrame::onName(FXObject *, FXSelector, void *)
 long
 NESFrame::onOverride(FXObject *, FXSelector, void *a_data)
 {
-  if ((int) a_data)
+  if ((intptr_t) a_data)
     {
       m_overrideNES->enable();
       m_overrideHeaderSize->enable();

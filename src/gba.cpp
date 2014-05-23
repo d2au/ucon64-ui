@@ -17,6 +17,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include <fx.h>
+#include <stdint.h>
 #include "CommandLineHandler.h"
 #include "ComboBox.h"
 #include "FileDialog.h"
@@ -585,7 +586,7 @@ GBAFrame::onName(FXObject *, FXSelector, void *)
 long
 GBAFrame::onOverride(FXObject *, FXSelector, void *a_data)
 {
-  if ((int) a_data)
+  if ((intptr_t) a_data)
     {
       m_overrideGBA->enable();
       m_overrideHeaderSize->enable();
