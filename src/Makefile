@@ -1,6 +1,6 @@
 # Change the following three lines to match your FOX installation
-FOXINCLUDEDIR=/usr/local/include/fox-1.4
-FOXLIBDIR=/usr/local/lib
+FOXINCLUDEDIR=/usr/include/fox-1.6
+FOXLIBDIR=/usr/lib
 FOXLIB=FOX-1.4
 # Under Windows 98, you may have to use something like:
 # FOXINCLUDEDIR=c:\\msys\\1.0\\local\\include\\fox-1.4
