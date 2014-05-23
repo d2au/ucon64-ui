@@ -601,8 +601,8 @@ OptionsWindow::onTipText(FXObject *, FXSelector, void *a_data)
           m_toolTip = new FXToolTip(app);           // enable tool tip messages
           if (value != -1)
             m_toolTip->create();                    // must not be called at construction time!
-          app->setToolTipTime(4000);                // time (in ms) to display message
-          app->setToolTipPause(1000);
+          app->setTooltipTime(4000);                // time (in ms) to display message
+          app->setTooltipPause(1000);
         }
     }
   else

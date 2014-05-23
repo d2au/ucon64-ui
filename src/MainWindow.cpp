@@ -109,7 +109,7 @@ MainWindow::MainWindow(FXApp *a_app, const FXString &a_name, FXIcon *a_icon,
     "SMS/GG files (*.smd,*.gg,*.sms,gg*.040,gg*.048,gg*.060,gg*.078)\n"
     "PCE/TG-16 files (*.pce,*.msg,pc*.030,pc*.040,pc*.048,pc*.058)\n"
     "Compressed files (*.zip,*.gz)");
-  m_fileSelector->setMatchMode(m_fileSelector->getMatchMode() | FXPath::CaseFold);
+  m_fileSelector->setMatchMode(m_fileSelector->getMatchMode() | FILEMATCH_CASEFOLD);
   m_fileSelector->allowPatternEntry(TRUE);
   m_fileSelector->setNumVisibleFilter(4);       // FOX 1.3 displays too many items
 
@@ -230,10 +230,10 @@ MainWindow::updateTitle(bool a_showSelectedFilesNo)
   // Note: m_nSelectedFiles doesn't have the correct value if the user selected
   //       some files in the Browse tab and then disables it.
   if (a_showSelectedFilesNo)
-    mainTitle = FXString::value("uCON64 frontend %d.%d - %d file%s selected",
+    mainTitle = FXStringFormat("uCON64 frontend %d.%d - %d file%s selected",
       UF_MAJOR, UF_MINOR, m_nSelectedFiles, m_nSelectedFiles == 1 ? "" : "s");
   else
-    mainTitle = FXString::value("uCON64 frontend %d.%d", UF_MAJOR, UF_MINOR);
+    mainTitle = FXStringFormat("uCON64 frontend %d.%d", UF_MAJOR, UF_MINOR);
   setTitle(mainTitle);
 }
 
@@ -395,7 +395,7 @@ long
 MainWindow::onAbout(FXObject *, FXSelector, void *)
 {
   FXDialogBox *aboutWindow = new FXDialogBox(this, "About uCON64 frontend");
-  FXString aboutText = FXString::value(
+  FXString aboutText = FXStringFormat(
     "\n"
     "A graphical frontend for the\n"
     "ROM tool uCON64. Version %d.%d.\n"

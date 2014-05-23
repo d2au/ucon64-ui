@@ -60,7 +60,7 @@ void
 Frontend::create()
 {
   createFonts();                                // should *not* be called in the c'tor
-  FXString mainTitle = FXString::value("uCON64 frontend %d.%d", UF_MAJOR, UF_MINOR);
+  FXString mainTitle = FXStringFormat("uCON64 frontend %d.%d", UF_MAJOR, UF_MINOR);
   m_mainWindow = new MainWindow(this, mainTitle, m_bigIcon, m_smallIcon,
     DECOR_ALL & ~DECOR_SHRINKABLE);
   FXApp::create();                              // must be called *after*
@@ -89,7 +89,7 @@ Frontend::createFonts(void)
   // FOX (<= 1.2) defaults to an ugly bold font under X
   FXFont *font = getNormalFont();
   FXFontDesc fontDesc;
-  fontDesc = font->getFontDesc();
+  font->getFontDesc(fontDesc);
 /*
   printf("face: %s; size: %d; weight: %d; slant: %d; setwidth: %d; encoding: %d; flags: %d\n",
          fontDesc.face, fontDesc.size, fontDesc.weight, fontDesc.slant,
