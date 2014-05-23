@@ -1,0 +1,96 @@
+# Change the following five lines to match your FOX installation
+FOXBASEDIR=c:\fox-1.4.6
+FOXINCLUDEDIR=$(FOXBASEDIR)\include
+FOXLIBDIR=$(FOXBASEDIR)\lib
+FOXLIB=FOX-1.4.lib
+RESWRAPDIR=$(FOXBASEDIR)\windows\vcpp\reswrap\Release
+
+# Note: The code compiles and runs with Visual C++ 6.0 Service Pack 5, but at
+# the moment I'm only interested in problems when compiling with MinGW.
+
+CC=cl.exe
+CFLAGS=/nologo /I. /I$(FOXINCLUDEDIR) /W3 /O2 /GX /GR /MT /DWIN32 /D_WINDOWS
+LDFLAGS=/NOLOGO /SUBSYSTEM:windows /ENTRY:mainCRTStartup /LIBPATH:$(FOXLIBDIR) \
+        $(FOXLIB) comctl32.lib wsock32.lib kernel32.lib user32.lib gdi32.lib \
+        advapi32.lib shell32.lib
+
+OBJECTS=main.obj Frontend.obj MainWindow.obj OptionsWindow.obj TextFieldOption.obj \
+        CheckButtonOption.obj RegistryEntry.obj CommandLineHandler.obj Process.obj \
+        ProgressDialog.obj OutputChecker.obj FileSelector.obj FileDialog.obj \
+        ComboBox.obj EditTextWindow.obj MultiGameFileSelector.obj \
+        SNESControllerSettings.obj snes.obj genesis.obj gb.obj gba.obj n64.obj nes.obj sms.obj \
+        pce.obj ngp.obj misc.obj icons.obj
+ICONS=icon16.gif icon32.gif icon64.gif
+
+TARGET=uf.exe
+
+
+all: $(TARGET)
+
+
+clean:
+	del $(TARGET)
+	del *.obj
+	del icons.cpp
+	del icons.h
+	del stdout
+	del stderr
+	del process_errors.txt
+
+
+.cpp.obj:
+	$(CC) $(CFLAGS) /c $< /Fo$@
+
+
+$(TARGET): $(OBJECTS)
+	link.exe $(OBJECTS) $(LDFLAGS) /OUT:$@
+
+
+icons.h: $(ICONS)
+	$(RESWRAPDIR)\reswrap -i -o $@ $(ICONS)
+
+
+icons.cpp: $(ICONS)
+	$(RESWRAPDIR)\reswrap -e -o $@ $(ICONS)
+
+
+# Dependencies
+
+TAB_STD_H=MainWindow.h CommandLineHandler.h TextFieldOption.h ComboBox.h \
+          FileDialog.h Frontend.h
+
+main.obj: main.h Frontend.h
+Frontend.obj: Frontend.h MainWindow.h icons.h
+MainWindow.obj: MainWindow.h Frontend.h FileSelector.h OptionsWindow.h \
+              CommandLineHandler.h FileDialog.h snes.h genesis.h gb.h gba.h \
+              n64.h nes.h sms.h pce.h ngp.h misc.h
+OptionsWindow.obj: OptionsWindow.h MainWindow.h TextFieldOption.h \
+                 CheckButtonOption.h EditTextWindow.h CommandLineHandler.h
+TextFieldOption.obj: TextFieldOption.h RegistryEntry.h
+CheckButtonOption.obj: CheckButtonOption.h RegistryEntry.h
+RegistryEntry.obj: RegistryEntry.h
+CommandLineHandler.obj: CommandLineHandler.h MainWindow.h Process.h ProcessIPC.h \
+                      OutputChecker.h ProgressDialog.h OptionsWindow.h \
+                      FileDialog.h
+EditTextWindow.obj: EditTextWindow.h
+Process.obj: Process.h
+ProcessIPC.obj: ProcessIPC.h Process.h
+ProgressDialog.obj: ProgressDialog.h
+OutputChecker.obj: OutputChecker.h Process.h ProcessIPC.h ProgressDialog.h \
+                 MainWindow.h
+FileSelector.obj: FileSelector.h
+FileDialog.obj: FileDialog.h
+ComboBox.obj: ComboBox.h
+MultiGameFileSelector.obj: MultiGameFileSelector.h FileSelector.h Frontend.h
+SNESControllerSettings.obj: SNESControllerSettings.h ComboBox.h
+snes.obj: snes.h $(TAB_STD_H) MultiGameFileSelector.h SNESControllerSettings.h
+genesis.obj: genesis.h $(TAB_STD_H) MultiGameFileSelector.h
+gb.obj: gb.h $(TAB_STD_H)
+gba.obj: gba.h $(TAB_STD_H) MultiGameFileSelector.h
+n64.obj: n64.h $(TAB_STD_H)
+nes.obj: nes.h $(TAB_STD_H)
+sms.obj: sms.h $(TAB_STD_H) MultiGameFileSelector.h
+pce.obj: pce.h $(TAB_STD_H) MultiGameFileSelector.h
+ngp.obj: ngp.h $(TAB_STD_H)
+misc.obj: misc.h $(TAB_STD_H)
+icons.obj: icons.h
