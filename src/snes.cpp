@@ -598,7 +598,7 @@ SNESFrame::onReceive(FXObject *, FXSelector, void *)
   else
     {
       // TODO?: Strip quotes from string
-      if (FXFile::exists(filename))
+      if (FXStat::exists(filename))
         {
           FXMessageBox::warning(this, MBOX_OK, "File already exists",
             "Please specify a different file name");

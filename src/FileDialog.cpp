@@ -53,7 +53,7 @@ FileDialog::getOpenFilename(FXWindow *a_owner, const FXString &a_caption,
   if (opendialog.execute())
     {
       filename = opendialog.getFilename();
-      if (FXFile::isFile(filename))
+      if (FXStat::isFile(filename))
         return filename;
     }
   return FXString::null;
@@ -86,7 +86,7 @@ FileDialog::getOpenDirectory(FXWindow *a_owner, const FXString &a_caption,
   if(dirdialog.execute())
     {
       dirname = dirdialog.getFilename();
-      if (FXFile::isDirectory(dirname))
+      if (FXStat::isDirectory(dirname))
         return dirname;
     }
   return FXString::null;

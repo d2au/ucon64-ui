@@ -105,7 +105,7 @@ ProgressDialog::setProgress(FXuint a_value)
   if (nSecondsLeft > 99 * 60 + 59)              // just in case :-)
     nSecondsLeft = 99 * 60 + 59;
 
-  FXString timeString = FXStringFormat("ETA=%02d:%02d",
+  FXString timeString = FXString::value("ETA=%02d:%02d",
     nSecondsLeft / 60, nSecondsLeft % 60);
   m_timeInfo->setText(timeString);
 }

@@ -78,7 +78,7 @@ $(TARGET): $(OBJECTS)
 
 
 icons.h: $(ICONS)
-	reswrap -i -o $@ $(ICONS)
+	reswrap -o $@ $(ICONS)
 
 
 icons.cpp: $(ICONS)

@@ -307,7 +307,7 @@ CommandLineHandler::buildCommandLine(char **&a_options,
   textFieldOption = a_optionsWindow->getuCON64Path();
   text = textFieldOption->getText().trim();
   ptr = (char *) text.text();
-  if (!FXFile::exists(ptr))
+  if (!FXStat::exists(ptr))
     {
       FXMessageBox::error(m_mainWindow, MBOX_OK, "uCON64 path is not correct",
         "Please specify a correct uCON64 path in the options window");

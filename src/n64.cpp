@@ -468,7 +468,7 @@ N64Frame::onReceive(FXObject *, FXSelector, void *)
   char *filename = (char *) text.text();
   if (!filename[0])
     return 1;
-  else if (FXFile::exists(filename))
+  else if (FXStat::exists(filename))
     {
       FXMessageBox::warning(this, MBOX_OK, "File already exists",
         "Please specify a different file name");
@@ -535,7 +535,7 @@ N64Frame::onReplaceBootCode(FXObject *, FXSelector, void *)
         "Please specify a boot code file name");
       return 1;
     }
-  else if (!FXFile::exists(filename))
+  else if (!FXStat::exists(filename))
     {
       FXMessageBox::warning(this, MBOX_OK,
         "Specified boot code file does not exist",
@@ -586,7 +586,7 @@ N64Frame::onExtractBootCode(FXObject *, FXSelector, void *)
     }
   // also check for the existence of the file, because the action of --bot
   //  is determinded by it
-  else if (FXFile::exists(filename))
+  else if (FXStat::exists(filename))
     {
       FXMessageBox::warning(this, MBOX_OK, "File already exists",
         "Please specify a different file name");

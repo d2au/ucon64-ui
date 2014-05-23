@@ -109,7 +109,7 @@ MainWindow::MainWindow(FXApp *a_app, const FXString &a_name, FXIcon *a_icon,
     "SMS/GG files (*.smd,*.gg,*.sms,gg*.040,gg*.048,gg*.060,gg*.078)\n"
     "PCE/TG-16 files (*.pce,*.msg,pc*.030,pc*.040,pc*.048,pc*.058)\n"
     "Compressed files (*.zip,*.gz)");
-  m_fileSelector->setMatchMode(m_fileSelector->getMatchMode() | FILEMATCH_CASEFOLD);
+  m_fileSelector->setMatchMode(m_fileSelector->getMatchMode() | FXPath::CaseFold);
   m_fileSelector->allowPatternEntry(TRUE);
   m_fileSelector->setNumVisibleFilter(4);       // FOX 1.3 displays too many items
 
@@ -230,10 +230,10 @@ MainWindow::updateTitle(bool a_showSelectedFilesNo)
   // Note: m_nSelectedFiles doesn't have the correct value if the user selected
   //       some files in the Browse tab and then disables it.
   if (a_showSelectedFilesNo)
-    mainTitle = FXStringFormat("uCON64 frontend %d.%d - %d file%s selected",
+    mainTitle = FXString::value("uCON64 frontend %d.%d - %d file%s selected",
       UF_MAJOR, UF_MINOR, m_nSelectedFiles, m_nSelectedFiles == 1 ? "" : "s");
   else
-    mainTitle = FXStringFormat("uCON64 frontend %d.%d", UF_MAJOR, UF_MINOR);
+    mainTitle = FXString::value("uCON64 frontend %d.%d", UF_MAJOR, UF_MINOR);
   setTitle(mainTitle);
 }
 
@@ -245,9 +245,9 @@ MainWindow::searchFont(char *a_name, int a_preferredSize)
   FXFontDesc *fontDescs;
   FXuint nfontDescs;
 
-  if (FXFont::listFonts(fontDescs, nfontDescs, a_name, FONTWEIGHT_DONTCARE,
-        FONTSLANT_REGULAR, /* FONTSLANT_DONTCARE, */ FONTSETWIDTH_DONTCARE,
-        FONTENCODING_DEFAULT, FONTPITCH_FIXED) == TRUE) // FONTPITCH_DEFAULT
+  if (FXFont::listFonts(fontDescs, nfontDescs, a_name, 0,
+        0, /* FONTSLANT_DONTCARE, */ 0,
+        0, 0) == TRUE) // FONTPITCH_DEFAULT
     {
       FXuint n;
       char description[80];
@@ -262,9 +262,9 @@ MainWindow::searchFont(char *a_name, int a_preferredSize)
           fflush(stdout);
 */
           if (((fontDescs[n].size > 85 && fontDescs[n].size < 100) ||
-                (fontDescs[n].flags & FONTHINT_SCALABLE)) &&
-              (fontDescs[n].weight == FONTWEIGHT_REGULAR ||
-               fontDescs[n].weight == FONTWEIGHT_MEDIUM))
+                (fontDescs[n].flags & FXFont::Scalable)) &&
+              (fontDescs[n].weight == FXFont::Normal ||
+               fontDescs[n].weight == FXFont::Medium))
             {
 //              printf("Found font: %s (%sscalable)\n", fontDescs[n].face,
 //                fontDescs[n].flags & FONTHINT_SCALABLE ? "" : "not ");
@@ -395,7 +395,7 @@ long
 MainWindow::onAbout(FXObject *, FXSelector, void *)
 {
   FXDialogBox *aboutWindow = new FXDialogBox(this, "About uCON64 frontend");
-  FXString aboutText = FXStringFormat(
+  FXString aboutText = FXString::value(
     "\n"
     "A graphical frontend for the\n"
     "ROM tool uCON64. Version %d.%d.\n"

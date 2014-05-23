@@ -499,7 +499,7 @@ GenesisFrame::onReceive(FXObject *, FXSelector, void *)
   char *filename = (char *) text.text();
   if (!filename[0])
     return 1;
-  else if (FXFile::exists(filename))
+  else if (FXStat::exists(filename))
     {
       FXMessageBox::warning(this, MBOX_OK, "File already exists",
         "Please specify a different file name");

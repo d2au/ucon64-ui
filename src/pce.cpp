@@ -270,7 +270,7 @@ PCEFrame::onReceive(FXObject *, FXSelector, void *)
     return 1;
   else
     {
-      if (FXFile::exists(filename))
+      if (FXStat::exists(filename))
         {
           FXMessageBox::warning(this, MBOX_OK, "File already exists",
             "Please specify a different file name");

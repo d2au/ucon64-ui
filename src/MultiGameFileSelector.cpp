@@ -117,17 +117,17 @@ MultiGameFileSelector::MultiGameFileSelector(FXWindow *a_owner, int a_blockSize,
       int n = 0;
       while (filenames[n][0])
         {
-          int size = FXFile::size(filenames[n]);
+          int size = FXStat::size(filenames[n]);
           if (size % 32768 == 512)
             size -= 512;                        // quick hack to handle backup unit headers
-          m_selectedFiles->appendItem(new FXListItem(FXFile::name(filenames[n]),
+          m_selectedFiles->appendItem(new FXListItem(FXPath::name(filenames[n]),
             NULL, new FileInfo(filenames[n], size)));
           m_totalSize += (size + m_blockSize - 1) & ~(m_blockSize - 1);
           n++;
         }
       delete [] filenames;
     }
-  m_totalSizeLabel->setText(FXStringFormat("Total size: %d Mbit",
+  m_totalSizeLabel->setText(FXString::value("Total size: %d Mbit",
     (m_totalSize + 128 * 1024 - 1) / (128 * 1024))); // round up
   if (m_totalSize == 0)
     m_removeButton->disable();
@@ -159,10 +159,10 @@ MultiGameFileSelector::onAddFile(FXObject *, FXSelector, void *)
       int n = 0;
       while (filenames[n][0])
         {
-          int size = FXFile::size(filenames[n]);
+          int size = FXStat::size(filenames[n]);
           if (size % 32768 == 512)
             size -= 512;                        // quick hack to handle backup unit headers
-          m_selectedFiles->appendItem(new FXListItem(FXFile::name(filenames[n]),
+          m_selectedFiles->appendItem(new FXListItem(FXPath::name(filenames[n]),
             NULL, new FileInfo(filenames[n], size)));
           m_totalSize += (size + m_blockSize - 1) & ~(m_blockSize - 1);
           n++;
@@ -173,7 +173,7 @@ MultiGameFileSelector::onAddFile(FXObject *, FXSelector, void *)
     FXMessageBox::information(this, MBOX_OK, "No file selected",
       "Please select a file on the left");
 
-  m_totalSizeLabel->setText(FXStringFormat("Total size: %d Mbit",
+  m_totalSizeLabel->setText(FXString::value("Total size: %d Mbit",
     (m_totalSize + 128 * 1024 - 1) / (128 * 1024)));
   if (m_totalSize)
     m_removeButton->enable();
@@ -205,7 +205,7 @@ MultiGameFileSelector::onRemoveFile(FXObject *, FXSelector, void *)
   if (!fileSelected)
     FXMessageBox::information(this, MBOX_OK, "No file selected",
       "Please select a file on the right");
-  m_totalSizeLabel->setText(FXStringFormat("Total size: %d Mbit",
+  m_totalSizeLabel->setText(FXString::value("Total size: %d Mbit",
     (m_totalSize + 128 * 1024 - 1) / (128 * 1024)));
   if (m_totalSize)
     m_removeButton->enable();

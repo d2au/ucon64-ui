@@ -53,8 +53,8 @@ EditTextWindow::EditTextWindow(FXWindow *a_owner, const FXString &a_name,
   new FXButton(windowArea, "Save", NULL, this, ID_SAVE,
     BUTTON_NORMAL | LAYOUT_CENTER_X, 0, 0, 0, 0, 10, 10);
 
-  FXFile::mode(m_filename, 0644);               // rw-r--r--
-  int size = FXFile::size(m_filename);
+  FXStat::mode(m_filename, 0644);               // rw-r--r--
+  int size = FXStat::size(m_filename);
   char *configFileContents = new char[size + 1];
   ifstream configFile(m_filename, ios::in);
   // NOT "| ios::binary", because under Windows it's a DOS text file
@@ -83,7 +83,7 @@ EditTextWindow::~EditTextWindow()
 long
 EditTextWindow::onSave(FXObject *, FXSelector, void *)
 {
-  FXFile::mode(m_filename, 0644);               // rw-r--r--
+  FXStat::mode(m_filename, 0644);               // rw-r--r--
   ofstream configFile(m_filename, ios::out);
   if (!configFile)
     {

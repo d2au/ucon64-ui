@@ -385,19 +385,19 @@ OptionsWindow::onF2A(FXObject *a_src, FXSelector, void *)
     {
       FXString startPath2, startPath3;
 
-      startPath2 = FXFile::directory(m_F2ALogoPath->getText());
+      startPath2 = m_F2ALogoPath->getText();
       if (!startPath2.empty()) // && !FXFile::identical(startPath2, startPath))
         startPath3 = startPath2;
 
-      startPath2 = FXFile::directory(m_F2AClientParPortPath->getText());
+      startPath2 = m_F2AClientParPortPath->getText();
       if (!startPath2.empty()) // && !FXFile::identical(startPath2, startPath))
         startPath3 = startPath2;
 
-      startPath2 = FXFile::directory(m_F2AClientUSBPath->getText());
+      startPath2 = m_F2AClientUSBPath->getText();
       if (!startPath2.empty()) // && !FXFile::identical(startPath2, startPath))
         startPath3 = startPath2;
 
-      startPath2 = FXFile::directory(m_F2AFirmwarePath->getText());
+      startPath2 = m_F2AFirmwarePath->getText();
       if (!startPath2.empty()) // && !FXFile::identical(startPath2, startPath))
         startPath3 = startPath2;
 
@@ -421,7 +421,7 @@ OptionsWindow::onEditConfigFile(FXObject *, FXSelector, void *)
   char configFileName[FILENAME_MAX];
   FXString text = m_configFileDir->getText().trim();
   sprintf(configFileName, "%s"PATHSEPSTRING".ucon64rc", text.text());
-  if (!FXFile::exists(configFileName))
+  if (!FXStat::exists(FXString(configFileName)))
     {
       FXMessageBox::error(this, MBOX_OK, "Specified configuration file does not exist",
         "Please specify a correct configuration file directory\n"
@@ -600,8 +600,8 @@ OptionsWindow::onTipText(FXObject *, FXSelector, void *a_data)
           m_toolTip = new FXToolTip(app);           // enable tool tip messages
           if (value != -1)
             m_toolTip->create();                    // must not be called at construction time!
-          app->setTooltipTime(4000);                // time (in ms) to display message
-          app->setTooltipPause(1000);
+          app->setToolTipTime(4000);                // time (in ms) to display message
+          app->setToolTipPause(1000);
         }
     }
   else
