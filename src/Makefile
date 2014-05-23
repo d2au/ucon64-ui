@@ -69,6 +69,8 @@ all: $(TARGET)
 clean:
 	rm -f $(TARGET) $(OBJECTS) icons.cpp icons.h stdout stderr process_errors.txt
 
+install:
+	cp uf /usr/bin/uf
 
 .cpp.o:
 	$(CC) $(CFLAGS) -c $< -o $@
