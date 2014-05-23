@@ -1,7 +1,7 @@
 # Change the following three lines to match your FOX installation
 FOXINCLUDEDIR=/usr/include/fox-1.6
 FOXLIBDIR=/usr/lib
-FOXLIB=FOX-1.4
+FOXLIB=FOX-1.6
 # Under Windows 98, you may have to use something like:
 # FOXINCLUDEDIR=c:\\msys\\1.0\\local\\include\\fox-1.4
 # FOXLIBDIR=c:\\msys\\1.0\\local\\lib
@@ -25,7 +25,8 @@ ifeq ($(GCC_WIN),0)
 endif
 
 CC=g++
-CFLAGS=-I. -I$(FOXINCLUDEDIR) -Wall -W
+#CFLAGS=-I. -I$(FOXINCLUDEDIR) -Wall -W
+CFLAGS=-I. -I$(FOXINCLUDEDIR) -w
 # -O3
 ifeq ($(GCC_WIN),1)
 # -DWIN32 is only really necessary (for FOX) on Cygwin (MinGW defines it)
